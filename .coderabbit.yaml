@@ -1,0 +1,106 @@
+# CodeRabbit Configuration for Yabal-Ramos
+# Auto-review settings for macOS Yabai/Skhd installation scripts
+
+# Language configuration
+language: "pt-br"
+
+# Auto-review settings
+auto_review:
+  enabled: true
+  drafts: false
+
+# Review settings
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  high_level_summary_placeholder: "**Resumo das Mudanças**"
+  poem: true
+  review_status: true
+  collapse_empty_sections: true
+
+# Tone and style
+tone_instructions: |
+  - Use linguagem técnica mas acessível em português brasileiro
+  - Foque em segurança, principalmente em scripts que modificam permissões do sistema
+  - Destaque boas práticas de shell scripting
+  - Sugira melhorias de usabilidade e experiência do usuário
+  - Considere compatibilidade entre versões do macOS
+  - Valide sintaxe bash e práticas de segurança
+
+# Path-based instructions
+path_instructions:
+  - path: "*.sh"
+    instructions: |
+      - Verificar sintaxe bash com set -euo pipefail
+      - Validar tratamento de erros e edge cases
+      - Checar se as variáveis estão adequadamente quotadas
+      - Verificar se os comandos sudo são necessários e seguros
+      - Sugerir melhorias de logging e feedback ao usuário
+
+  - path: "install.sh"
+    instructions: |
+      - Validar se todas as dependências são verificadas
+      - Checar se a detecção de plataforma está correta
+      - Verificar se o rollback em caso de erro está implementado
+      - Sugerir melhorias na experiência de instalação
+
+  - path: "*grant-accessibility*.sh"
+    instructions: |
+      - CRÍTICO: Verificar segurança das modificações TCC
+      - Validar se as permissões solicitadas são mínimas necessárias
+      - Checar compatibilidade com diferentes versões do macOS
+      - Verificar se há fallbacks para métodos que falham
+      - Sugerir avisos claros sobre impactos de segurança
+
+  - path: "troubleshoot.sh"
+    instructions: |
+      - Verificar se todos os cenários de erro comuns são cobertos
+      - Validar se as sugestões de correção são precisas
+      - Checar se o diagnóstico é abrangente mas não invasivo
+      - Sugerir melhorias na clareza das mensagens de erro
+
+  - path: "*.md"
+    instructions: |
+      - Verificar clareza e precisão da documentação
+      - Validar se todos os exemplos de código funcionam
+      - Checar se as instruções estão completas e ordenadas
+      - Sugerir melhorias na estrutura e formatação
+      - Verificar se links e referências estão corretos
+
+# Early access features
+early_access: true
+
+# Chat settings
+chat:
+  auto_reply: true
+
+# Knowledge base
+knowledge_base:
+  learnings:
+    enabled: true
+    max_learnings: 10
+
+# Additional instructions for this specific project
+additional_instructions: |
+  Este projeto contém scripts críticos que modificam permissões do sistema macOS.
+  
+  Prioridades de review:
+  1. SEGURANÇA: Scripts que modificam TCC database são críticos
+  2. COMPATIBILIDADE: Deve funcionar em macOS Monterey até Sequoia
+  3. EXPERIÊNCIA: Scripts devem ser user-friendly e informativos
+  4. ROBUSTEZ: Tratamento adequado de erros e edge cases
+  5. MANUTENIBILIDADE: Código claro e bem documentado
+  
+  Foque especialmente em:
+  - Validação de entrada e sanitização
+  - Verificações de pré-requisitos (Homebrew, macOS version, etc.)
+  - Feedback claro para o usuário em cada etapa
+  - Rollback em caso de falhas parciais
+  - Logs adequados para troubleshooting
+  
+  Considere cenários específicos do macOS:
+  - SIP (System Integrity Protection) habilitado/desabilitado
+  - Diferentes versões de TCC database schema
+  - Variações entre Intel e Apple Silicon
+  - Diferentes terminais (Terminal.app, iTerm2, etc.)
